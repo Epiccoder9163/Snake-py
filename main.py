@@ -55,6 +55,14 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 scale_percent = int(config['Settings']["scale"])
 
+# Pick game music
+music_list = ["./audio/03 - Toby Fox - Pirate Dojo.flac"]
+song_pick = random.choice(music_list)
+music = pygame.mixer.Sound(song_pick)
+
+# Menu music
+menu_music = pygame.mixer.Sound("./audio/33 - Toby Fox - Running Sky.flac")
+
 # Assign default font
 font = pygame.font.SysFont("Ubuntu Mono", scale_percent * 24)
 # Print screen details for debugging purposes
@@ -65,7 +73,11 @@ def menu(title, subtitle, subtitle2, options, functions):
     # Create a variable menu
     global state
     global snake_coords
-
+    
+    # Start music
+    menu_music.set_volume(volume)
+    menu_music_obj = menu_music.play()
+    
     # Create a fruit randomly for visual effect
     create_fruit()
 
@@ -316,6 +328,13 @@ def game_over():
     sound = pygame.mixer.Sound("./audio/womp.mp3")
     sound.set_volume(volume)
     sound.play()
+    
+    # Pause game music
+    music.stop()
+    
+    # Play menu music
+    menu_music.play()
+    
     # Checks if the score you got is higher than the high score, if so save the new high score
     if score > int(highscore):
         # Save the high score to the save.ini file
@@ -441,7 +460,14 @@ def play():
 
     # Draw the initial fruit(s)
     create_fruit()
-
+    
+    # Pause menu music
+    menu_music.stop()
+    
+    # Start randomly picked music
+    music.set_volume(volume)
+    music.play()
+    
     # Main game loop
     while True:
         # Poll arrow keys for inputs
