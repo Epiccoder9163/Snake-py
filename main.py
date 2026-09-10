@@ -346,10 +346,10 @@ def game_over():
             save.write(configfile)
         while True:
             # Display a different menu if you get a new high score
-            menu("Game Over!", "Your Score: " + str(score), "You got a new high score!", ["Play Again", "Options", "Quit Game"], [play, start_options, quit])
+            menu("Game Over!", "Your Score: " + str(score), "You got a new high score!", ["Play Again", "Options", "Quit Game"], [play, start_options, exit])
     else:
         while True:
-            menu("Game Over!", "Your Score: " + str(score), "Your High Score: " + highscore, ["Play Again", "Options", "Quit Game"], [play, start_options, quit])
+            menu("Game Over!", "Your Score: " + str(score), "Your High Score: " + highscore, ["Play Again", "Options", "Quit Game"], [play, start_options, exit])
 
 def start_options():
     # Load the config file and start the main options menu
@@ -548,6 +548,6 @@ choice = random.choice(subtitle_list)
 # Initially load the settings from the configuration, used to generate the menu
 load_settings()
 while True:
-    menu("SNAKE", choice, "High Score: " + highscore, ["Play", "Options", "Quit Game"], [play, start_options, quit])
+    menu("SNAKE", choice, "High Score: " + highscore, ["Play", "Options", "Quit Game"], [play, start_options, exit])
 
 
